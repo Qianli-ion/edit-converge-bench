@@ -1,0 +1,22 @@
+# Core dependencies
+numpy>=1.24.0
+Pillow>=10.0.0
+
+# Google Gemini API
+google-generativeai>=0.3.0
+
+# Quality metrics
+scikit-image>=0.21.0  # For SSIM
+lpips>=0.1.4          # For LPIPS
+torch>=2.0.0          # Required by LPIPS
+torchvision>=0.15.0   # Required by LPIPS
+
+# Semantic metrics
+# CLIP - install separately:
+# pip install git+https://github.com/openai/CLIP.git
+
+# Visualization
+matplotlib>=3.7.0
+
+# Utilities
+tqdm>=4.65.0

@@ -1,0 +1,122 @@
+[
+  {
+    "name": "glasses_add_remove",
+    "category": "accessories",
+    "forward": "Add glasses to the person",
+    "backward": "Remove the glasses from the person"
+  },
+  {
+    "name": "hat_add_remove",
+    "category": "accessories",
+    "forward": "Add a hat to the person",
+    "backward": "Remove the hat from the person"
+  },
+  {
+    "name": "sunglasses_add_remove",
+    "category": "accessories",
+    "forward": "Add sunglasses to the person",
+    "backward": "Remove the sunglasses from the person"
+  },
+  {
+    "name": "earrings_add_remove",
+    "category": "accessories",
+    "forward": "Add earrings to the person",
+    "backward": "Remove the earrings from the person"
+  },
+  {
+    "name": "necklace_add_remove",
+    "category": "accessories",
+    "forward": "Add a necklace to the person",
+    "backward": "Remove the necklace from the person"
+  },
+  {
+    "name": "chair_add_remove",
+    "category": "scene_objects",
+    "forward": "Add a wooden chair on the left side of the image",
+    "backward": "Remove the wooden chair from the image"
+  },
+  {
+    "name": "red_ball_add_remove",
+    "category": "scene_objects",
+    "forward": "Add a red ball in the foreground",
+    "backward": "Remove the red ball from the image"
+  },
+  {
+    "name": "plant_add_remove",
+    "category": "scene_objects",
+    "forward": "Add a potted plant in the corner",
+    "backward": "Remove the potted plant from the image"
+  },
+  {
+    "name": "book_add_remove",
+    "category": "scene_objects",
+    "forward": "Add an open book on the table",
+    "backward": "Remove the book from the table"
+  },
+  {
+    "name": "coffee_cup_add_remove",
+    "category": "scene_objects",
+    "forward": "Add a coffee cup on the surface",
+    "backward": "Remove the coffee cup from the image"
+  },
+  {
+    "name": "horizontal_flip",
+    "category": "geometric",
+    "forward": "Flip the image horizontally (mirror)",
+    "backward": "Flip the image horizontally (mirror)"
+  },
+  {
+    "name": "rotate_90_cw",
+    "category": "geometric",
+    "forward": "Rotate the image 90 degrees clockwise",
+    "backward": "Rotate the image 90 degrees counter-clockwise"
+  },
+  {
+    "name": "beard_add_remove",
+    "category": "accessories",
+    "forward": "Add a beard to the person",
+    "backward": "Remove the beard from the person"
+  },
+  {
+    "name": "mustache_add_remove",
+    "category": "accessories",
+    "forward": "Add a mustache to the person",
+    "backward": "Remove the mustache from the person"
+  },
+  {
+    "name": "scarf_add_remove",
+    "category": "accessories",
+    "forward": "Add a scarf around the person's neck",
+    "backward": "Remove the scarf from the person"
+  },
+  {
+    "name": "umbrella_add_remove",
+    "category": "scene_objects",
+    "forward": "Add an open umbrella being held",
+    "backward": "Remove the umbrella from the image"
+  },
+  {
+    "name": "cat_add_remove",
+    "category": "scene_objects",
+    "forward": "Add a cat sitting nearby",
+    "backward": "Remove the cat from the image"
+  },
+  {
+    "name": "dog_add_remove",
+    "category": "scene_objects",
+    "forward": "Add a dog in the scene",
+    "backward": "Remove the dog from the image"
+  },
+  {
+    "name": "flower_vase_add_remove",
+    "category": "scene_objects",
+    "forward": "Add a vase with flowers on the table",
+    "backward": "Remove the vase with flowers from the image"
+  },
+  {
+    "name": "watch_add_remove",
+    "category": "accessories",
+    "forward": "Add a wristwatch to the person's wrist",
+    "backward": "Remove the wristwatch from the person"
+  }
+]
