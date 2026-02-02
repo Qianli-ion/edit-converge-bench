@@ -38,8 +38,17 @@ def load_model(model_name: str, api_key: Optional[str] = None) -> BaseEditModel:
     if model_name in ["gemini", "nano-banana", "gemini-flash"]:
         from models.gemini import GeminiEditModel
         return GeminiEditModel(api_key=api_key)
+    elif model_name in ["flux", "flux-dev", "flux-kontext-dev"]:
+        from models.flux import FluxKontextDev
+        return FluxKontextDev(api_key=api_key)
+    elif model_name in ["flux-pro", "flux-kontext-pro"]:
+        from models.flux import FluxKontextPro
+        return FluxKontextPro(api_key=api_key)
+    elif model_name in ["flux-max", "flux-kontext-max"]:
+        from models.flux import FluxKontextMax
+        return FluxKontextMax(api_key=api_key)
     else:
-        raise ValueError(f"Unknown model: {model_name}")
+        raise ValueError(f"Unknown model: {model_name}. Available: gemini, flux-dev, flux-pro, flux-max")
 
 
 def load_edit_pairs(path: Path) -> list[dict]:
