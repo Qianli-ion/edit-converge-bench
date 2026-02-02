@@ -1,0 +1,32 @@
+[
+  {
+    "filename": "portrait_01.jpg",
+    "type": "portrait",
+    "description": "Man with beard, white t-shirt, marble background"
+  },
+  {
+    "filename": "portrait_02.jpg",
+    "type": "portrait", 
+    "description": "Woman with brown hair, casual"
+  },
+  {
+    "filename": "portrait_03.jpg",
+    "type": "portrait",
+    "description": "Man, neutral expression"
+  },
+  {
+    "filename": "scene_01.jpg",
+    "type": "scene",
+    "description": "Green velvet couch, wooden floor, minimal room"
+  },
+  {
+    "filename": "scene_02.jpg",
+    "type": "scene",
+    "description": "Interior living room scene"
+  },
+  {
+    "filename": "scene_03.jpg",
+    "type": "scene",
+    "description": "Interior design scene"
+  }
+]

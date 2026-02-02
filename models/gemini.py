@@ -12,7 +12,7 @@ class GeminiEditModel(BaseEditModel):
     """
     Wrapper for Gemini 2.5 Flash Image (Nano Banana) model.
     
-    Uses the Google Generative AI API for image editing.
+    Uses the Google GenAI API for image editing.
     """
     
     name = "gemini-flash-image"
@@ -37,34 +37,19 @@ class GeminiEditModel(BaseEditModel):
         
         self.model_name = model_name
         self._client = None
-        self._model = None
     
     def _get_client(self):
-        """Lazy initialization of the Gemini client."""
+        """Lazy initialization of the GenAI client."""
         if self._client is None:
             try:
-                import google.generativeai as genai
-                genai.configure(api_key=self.api_key)
-                self._client = genai
-                self._model = genai.GenerativeModel(self.model_name)
+                from google import genai
+                self._client = genai.Client(api_key=self.api_key)
             except ImportError:
                 raise ImportError(
-                    "google-generativeai is required. "
-                    "Install with: pip install google-generativeai"
+                    "google-genai is required. "
+                    "Install with: pip install google-genai"
                 )
-        return self._client, self._model
-    
-    def _image_to_part(self, image: Image.Image) -> dict:
-        """Convert PIL Image to Gemini API format."""
-        # Convert to bytes
-        buffer = io.BytesIO()
-        image.save(buffer, format="PNG")
-        image_bytes = buffer.getvalue()
-        
-        return {
-            "mime_type": "image/png",
-            "data": base64.b64encode(image_bytes).decode("utf-8")
-        }
+        return self._client
     
     def edit(self, image: Image.Image, prompt: str) -> Image.Image:
         """
@@ -77,27 +62,31 @@ class GeminiEditModel(BaseEditModel):
         Returns:
             Edited PIL Image
         """
-        genai, model = self._get_client()
+        from google.genai import types
         
-        # Prepare the image part
-        image_part = self._image_to_part(image)
+        client = self._get_client()
+        
+        # Convert PIL Image to bytes
+        buffer = io.BytesIO()
+        image.save(buffer, format="PNG")
+        image_bytes = buffer.getvalue()
         
         # Create the request with image and text
-        response = model.generate_content(
-            [
-                {"inline_data": image_part},
+        response = client.models.generate_content(
+            model=self.model_name,
+            contents=[
+                types.Part.from_bytes(data=image_bytes, mime_type="image/png"),
                 prompt
             ],
-            generation_config=genai.GenerationConfig(
-                response_modalities=["image", "text"]
+            config=types.GenerateContentConfig(
+                response_modalities=["IMAGE", "TEXT"]
             )
         )
         
         # Extract the generated image
         for part in response.candidates[0].content.parts:
-            if hasattr(part, 'inline_data') and part.inline_data is not None:
-                image_data = part.inline_data.data
-                image_bytes = base64.b64decode(image_data)
+            if part.inline_data is not None:
+                image_bytes = part.inline_data.data
                 return Image.open(io.BytesIO(image_bytes)).convert("RGB")
         
         raise RuntimeError("No image returned from Gemini API")

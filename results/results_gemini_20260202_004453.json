@@ -1,0 +1,842 @@
+{
+  "metadata": {
+    "model": "gemini",
+    "timestamp": "20260202_004453",
+    "max_rounds": 3
+  },
+  "evaluations": [
+    {
+      "source_image": "data/images/portrait_01.jpg",
+      "forward_prompt": "Add glasses to the person",
+      "backward_prompt": "Remove the glasses from the person",
+      "model": "gemini-flash-image",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 28.073262880855072,
+            "ssim": 0.9218477659053167,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9732538461685181
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 26.820185526946595,
+            "ssim": 0.886465069868931,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.8311566114425659
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 25.17394671217494,
+            "ssim": 0.8547479246830171,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.6135101914405823
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "portrait_01.jpg",
+      "image_type": "portrait",
+      "edit_pair_name": "glasses_add_remove",
+      "edit_category": "accessories"
+    },
+    {
+      "source_image": "data/images/portrait_01.jpg",
+      "forward_prompt": "Add a hat to the person",
+      "backward_prompt": "Remove the hat from the person",
+      "model": "gemini-flash-image",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 27.678064690043517,
+            "ssim": 0.9150370631422149,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9647114872932434
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 25.665560750292926,
+            "ssim": 0.8901337297945532,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9206308126449585
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 24.11284534751387,
+            "ssim": 0.857779673389761,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.8165380954742432
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "portrait_01.jpg",
+      "image_type": "portrait",
+      "edit_pair_name": "hat_add_remove",
+      "edit_category": "accessories"
+    },
+    {
+      "source_image": "data/images/portrait_01.jpg",
+      "forward_prompt": "Add sunglasses to the person",
+      "backward_prompt": "Remove the sunglasses from the person",
+      "model": "gemini-flash-image",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 29.738724103175755,
+            "ssim": 0.9239440316775273,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9529213905334473
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 25.96973210852704,
+            "ssim": 0.8793974460764096,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.8864753246307373
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 24.95632725142358,
+            "ssim": 0.8461324459232848,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.7132584452629089
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "portrait_01.jpg",
+      "image_type": "portrait",
+      "edit_pair_name": "sunglasses_add_remove",
+      "edit_category": "accessories"
+    },
+    {
+      "source_image": "data/images/portrait_02.jpg",
+      "forward_prompt": "Add glasses to the person",
+      "backward_prompt": "Remove the glasses from the person",
+      "model": "gemini-flash-image",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 16.49399675414825,
+            "ssim": 0.7764711718522195,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9666193723678589
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 16.417504553563717,
+            "ssim": 0.7458491839679019,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9259669184684753
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 16.17617296800554,
+            "ssim": 0.7222715999516961,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9130954742431641
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "portrait_02.jpg",
+      "image_type": "portrait",
+      "edit_pair_name": "glasses_add_remove",
+      "edit_category": "accessories"
+    },
+    {
+      "source_image": "data/images/portrait_02.jpg",
+      "forward_prompt": "Add a hat to the person",
+      "backward_prompt": "Remove the hat from the person",
+      "model": "gemini-flash-image",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 12.959785546467684,
+            "ssim": 0.7153365839284294,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.6861229538917542
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 12.607538298229064,
+            "ssim": 0.6813639435179998,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.7494491338729858
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 12.554989973631884,
+            "ssim": 0.6697470630319415,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.7209688425064087
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "portrait_02.jpg",
+      "image_type": "portrait",
+      "edit_pair_name": "hat_add_remove",
+      "edit_category": "accessories"
+    },
+    {
+      "source_image": "data/images/portrait_02.jpg",
+      "forward_prompt": "Add sunglasses to the person",
+      "backward_prompt": "Remove the sunglasses from the person",
+      "model": "gemini-flash-image",
+      "rounds": [
+        {
+          "round": 1,
+          "success": false,
+          "error": "'NoneType' object has no attribute 'parts'"
+        }
+      ],
+      "image_filename": "portrait_02.jpg",
+      "image_type": "portrait",
+      "edit_pair_name": "sunglasses_add_remove",
+      "edit_category": "accessories"
+    },
+    {
+      "source_image": "data/images/portrait_03.jpg",
+      "forward_prompt": "Add glasses to the person",
+      "backward_prompt": "Remove the glasses from the person",
+      "model": "gemini-flash-image",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 27.129675049592752,
+            "ssim": 0.8409459035906157,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9404566287994385
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 25.74810331925024,
+            "ssim": 0.8038590785432262,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.8050352334976196
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 23.553857714919832,
+            "ssim": 0.757143069960088,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.7599806785583496
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "portrait_03.jpg",
+      "image_type": "portrait",
+      "edit_pair_name": "glasses_add_remove",
+      "edit_category": "accessories"
+    },
+    {
+      "source_image": "data/images/portrait_03.jpg",
+      "forward_prompt": "Add a hat to the person",
+      "backward_prompt": "Remove the hat from the person",
+      "model": "gemini-flash-image",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 17.145523661520173,
+            "ssim": 0.7691233905776409,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.8199265003204346
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 18.749049736286022,
+            "ssim": 0.7472411334627171,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.8455976843833923
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 18.62239695103224,
+            "ssim": 0.7209626172017826,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.6967081427574158
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "portrait_03.jpg",
+      "image_type": "portrait",
+      "edit_pair_name": "hat_add_remove",
+      "edit_category": "accessories"
+    },
+    {
+      "source_image": "data/images/portrait_03.jpg",
+      "forward_prompt": "Add sunglasses to the person",
+      "backward_prompt": "Remove the sunglasses from the person",
+      "model": "gemini-flash-image",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 20.163423528834027,
+            "ssim": 0.8002137075169639,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.7309916019439697
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 20.73772201403269,
+            "ssim": 0.7662939606542484,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.692054808139801
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 23.534980209005845,
+            "ssim": 0.7423689752084895,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.7380074262619019
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "portrait_03.jpg",
+      "image_type": "portrait",
+      "edit_pair_name": "sunglasses_add_remove",
+      "edit_category": "accessories"
+    },
+    {
+      "source_image": "data/images/scene_01.jpg",
+      "forward_prompt": "Add a wooden chair on the left side of the image",
+      "backward_prompt": "Remove the wooden chair from the image",
+      "model": "gemini-flash-image",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 31.86039699055573,
+            "ssim": 0.9325038883248401,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9668987989425659
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 25.14884721042721,
+            "ssim": 0.8798485613578141,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9533383250236511
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 24.53285473240795,
+            "ssim": 0.8499098715412071,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9435283541679382
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "scene_01.jpg",
+      "image_type": "scene",
+      "edit_pair_name": "chair_add_remove",
+      "edit_category": "scene_objects"
+    },
+    {
+      "source_image": "data/images/scene_01.jpg",
+      "forward_prompt": "Add a red ball in the foreground",
+      "backward_prompt": "Remove the red ball from the image",
+      "model": "gemini-flash-image",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 34.287284363744625,
+            "ssim": 0.9482106717389663,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9773359298706055
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 29.731648640685687,
+            "ssim": 0.9057224698584125,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9647664427757263
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 26.20582157098002,
+            "ssim": 0.8718811989919383,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9539922475814819
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "scene_01.jpg",
+      "image_type": "scene",
+      "edit_pair_name": "red_ball_add_remove",
+      "edit_category": "scene_objects"
+    },
+    {
+      "source_image": "data/images/scene_01.jpg",
+      "forward_prompt": "Add a potted plant in the corner",
+      "backward_prompt": "Remove the potted plant from the image",
+      "model": "gemini-flash-image",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 34.05650825511236,
+            "ssim": 0.9531373209467437,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.975979208946228
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 25.10085385143563,
+            "ssim": 0.8666489976561179,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9480328559875488
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 21.603843038470657,
+            "ssim": 0.7928799463441379,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9241235256195068
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "scene_01.jpg",
+      "image_type": "scene",
+      "edit_pair_name": "plant_add_remove",
+      "edit_category": "scene_objects"
+    },
+    {
+      "source_image": "data/images/scene_02.jpg",
+      "forward_prompt": "Add a wooden chair on the left side of the image",
+      "backward_prompt": "Remove the wooden chair from the image",
+      "model": "gemini-flash-image",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 16.69149178447387,
+            "ssim": 0.857603242331478,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9516474604606628
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 17.103307762168708,
+            "ssim": 0.8391003095510082,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9423784017562866
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 16.715832689750954,
+            "ssim": 0.7985382565307236,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9206393957138062
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "scene_02.jpg",
+      "image_type": "scene",
+      "edit_pair_name": "chair_add_remove",
+      "edit_category": "scene_objects"
+    },
+    {
+      "source_image": "data/images/scene_02.jpg",
+      "forward_prompt": "Add a red ball in the foreground",
+      "backward_prompt": "Remove the red ball from the image",
+      "model": "gemini-flash-image",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 24.67918542894634,
+            "ssim": 0.8935221509138236,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9806397557258606
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 24.033211873976683,
+            "ssim": 0.8637525939495451,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9791043400764465
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 22.066127246001187,
+            "ssim": 0.8128143508206196,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9631261825561523
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "scene_02.jpg",
+      "image_type": "scene",
+      "edit_pair_name": "red_ball_add_remove",
+      "edit_category": "scene_objects"
+    },
+    {
+      "source_image": "data/images/scene_02.jpg",
+      "forward_prompt": "Add a potted plant in the corner",
+      "backward_prompt": "Remove the potted plant from the image",
+      "model": "gemini-flash-image",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 25.650771657030603,
+            "ssim": 0.9140429873187742,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9824419617652893
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 18.11828914796626,
+            "ssim": 0.8141778584878739,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.8760469555854797
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 17.581307065093277,
+            "ssim": 0.7924071764388995,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.8607973456382751
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "scene_02.jpg",
+      "image_type": "scene",
+      "edit_pair_name": "plant_add_remove",
+      "edit_category": "scene_objects"
+    },
+    {
+      "source_image": "data/images/scene_03.jpg",
+      "forward_prompt": "Add a wooden chair on the left side of the image",
+      "backward_prompt": "Remove the wooden chair from the image",
+      "model": "gemini-flash-image",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 17.604970407540822,
+            "ssim": 0.7649304170702708,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9735642075538635
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 17.321494538891283,
+            "ssim": 0.7432613236163368,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.967448353767395
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 16.85781073392832,
+            "ssim": 0.7113153593846704,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9142804145812988
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "scene_03.jpg",
+      "image_type": "scene",
+      "edit_pair_name": "chair_add_remove",
+      "edit_category": "scene_objects"
+    },
+    {
+      "source_image": "data/images/scene_03.jpg",
+      "forward_prompt": "Add a red ball in the foreground",
+      "backward_prompt": "Remove the red ball from the image",
+      "model": "gemini-flash-image",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 26.376857954544498,
+            "ssim": 0.8477733330395482,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9881871938705444
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 22.789974623896356,
+            "ssim": 0.8039650497967257,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9837831854820251
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 18.93483881906934,
+            "ssim": 0.7266970291361039,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9356971979141235
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "scene_03.jpg",
+      "image_type": "scene",
+      "edit_pair_name": "red_ball_add_remove",
+      "edit_category": "scene_objects"
+    },
+    {
+      "source_image": "data/images/scene_03.jpg",
+      "forward_prompt": "Add a potted plant in the corner",
+      "backward_prompt": "Remove the potted plant from the image",
+      "model": "gemini-flash-image",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 22.560914927052266,
+            "ssim": 0.8171974723418168,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9793815612792969
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 20.949729950379485,
+            "ssim": 0.7752454536177861,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9481300115585327
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 15.617184997038397,
+            "ssim": 0.6770813275193572,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.897773265838623
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "scene_03.jpg",
+      "image_type": "scene",
+      "edit_pair_name": "plant_add_remove",
+      "edit_category": "scene_objects"
+    }
+  ]
+}
