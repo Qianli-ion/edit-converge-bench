@@ -1,0 +1,873 @@
+{
+  "metadata": {
+    "model": "flux-dev",
+    "timestamp": "20260202_083033",
+    "max_rounds": 3
+  },
+  "evaluations": [
+    {
+      "source_image": "data/images/portrait_01.jpg",
+      "forward_prompt": "Add glasses to the person",
+      "backward_prompt": "Remove the glasses from the person",
+      "model": "flux-kontext-dev",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 34.253197183826515,
+            "ssim": 0.9514354496120295,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9837878942489624
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 27.62792353000912,
+            "ssim": 0.8980423900571322,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9159804582595825
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 25.483391370666308,
+            "ssim": 0.8505714754899851,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.835345983505249
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "portrait_01.jpg",
+      "image_type": "portrait",
+      "edit_pair_name": "glasses_add_remove",
+      "edit_category": "accessories"
+    },
+    {
+      "source_image": "data/images/portrait_01.jpg",
+      "forward_prompt": "Add a hat to the person",
+      "backward_prompt": "Remove the hat from the person",
+      "model": "flux-kontext-dev",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 18.7183183768816,
+            "ssim": 0.763467835243543,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9426882863044739
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 18.439856901742978,
+            "ssim": 0.7459937816175316,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.8834637999534607
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 17.003116251268786,
+            "ssim": 0.6954025008154417,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9004334211349487
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "portrait_01.jpg",
+      "image_type": "portrait",
+      "edit_pair_name": "hat_add_remove",
+      "edit_category": "accessories"
+    },
+    {
+      "source_image": "data/images/portrait_01.jpg",
+      "forward_prompt": "Add sunglasses to the person",
+      "backward_prompt": "Remove the sunglasses from the person",
+      "model": "flux-kontext-dev",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 29.713103211251656,
+            "ssim": 0.9390843659183767,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9506908059120178
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 27.147295850576796,
+            "ssim": 0.897301302274334,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9011367559432983
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 24.736333652574046,
+            "ssim": 0.8372669630708298,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.832758903503418
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "portrait_01.jpg",
+      "image_type": "portrait",
+      "edit_pair_name": "sunglasses_add_remove",
+      "edit_category": "accessories"
+    },
+    {
+      "source_image": "data/images/portrait_02.jpg",
+      "forward_prompt": "Add glasses to the person",
+      "backward_prompt": "Remove the glasses from the person",
+      "model": "flux-kontext-dev",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 31.601071039341107,
+            "ssim": 0.8904157256037681,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9892870187759399
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 26.320036524684216,
+            "ssim": 0.8401530185003665,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9807140827178955
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 23.121064088884555,
+            "ssim": 0.7893763545054759,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.8350404500961304
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "portrait_02.jpg",
+      "image_type": "portrait",
+      "edit_pair_name": "glasses_add_remove",
+      "edit_category": "accessories"
+    },
+    {
+      "source_image": "data/images/portrait_02.jpg",
+      "forward_prompt": "Add a hat to the person",
+      "backward_prompt": "Remove the hat from the person",
+      "model": "flux-kontext-dev",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 20.657811788627036,
+            "ssim": 0.78524727458176,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.886987566947937
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 18.976603920602113,
+            "ssim": 0.7211156555571926,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.8321195840835571
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 18.76874642787804,
+            "ssim": 0.6745935124737912,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.7722886800765991
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "portrait_02.jpg",
+      "image_type": "portrait",
+      "edit_pair_name": "hat_add_remove",
+      "edit_category": "accessories"
+    },
+    {
+      "source_image": "data/images/portrait_02.jpg",
+      "forward_prompt": "Add sunglasses to the person",
+      "backward_prompt": "Remove the sunglasses from the person",
+      "model": "flux-kontext-dev",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 30.883348254499904,
+            "ssim": 0.8834936502909381,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9752002954483032
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 26.3344868354747,
+            "ssim": 0.8284106566913113,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9273962378501892
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 23.546365746832585,
+            "ssim": 0.7729514700598238,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.8477118015289307
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "portrait_02.jpg",
+      "image_type": "portrait",
+      "edit_pair_name": "sunglasses_add_remove",
+      "edit_category": "accessories"
+    },
+    {
+      "source_image": "data/images/portrait_03.jpg",
+      "forward_prompt": "Add glasses to the person",
+      "backward_prompt": "Remove the glasses from the person",
+      "model": "flux-kontext-dev",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 30.994007791307297,
+            "ssim": 0.9255197791422766,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9874294996261597
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 26.84021996693503,
+            "ssim": 0.8648971895688193,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9620393514633179
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 24.109393164818954,
+            "ssim": 0.8046533229057283,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9096009135246277
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "portrait_03.jpg",
+      "image_type": "portrait",
+      "edit_pair_name": "glasses_add_remove",
+      "edit_category": "accessories"
+    },
+    {
+      "source_image": "data/images/portrait_03.jpg",
+      "forward_prompt": "Add a hat to the person",
+      "backward_prompt": "Remove the hat from the person",
+      "model": "flux-kontext-dev",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 12.319255485454836,
+            "ssim": 0.42913282874813946,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.909041166305542
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 10.919887896601299,
+            "ssim": 0.34999754199881533,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.8497018814086914
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 10.171112829684112,
+            "ssim": 0.31460861606664364,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.7700473070144653
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "portrait_03.jpg",
+      "image_type": "portrait",
+      "edit_pair_name": "hat_add_remove",
+      "edit_category": "accessories"
+    },
+    {
+      "source_image": "data/images/portrait_03.jpg",
+      "forward_prompt": "Add sunglasses to the person",
+      "backward_prompt": "Remove the sunglasses from the person",
+      "model": "flux-kontext-dev",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 27.776391200815954,
+            "ssim": 0.9062494015813621,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9764219522476196
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 25.187445039194692,
+            "ssim": 0.842566696225044,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.8520627021789551
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 23.046844743765945,
+            "ssim": 0.7787336587779535,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.7406813502311707
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "portrait_03.jpg",
+      "image_type": "portrait",
+      "edit_pair_name": "sunglasses_add_remove",
+      "edit_category": "accessories"
+    },
+    {
+      "source_image": "data/images/scene_01.jpg",
+      "forward_prompt": "Add a wooden chair on the left side of the image",
+      "backward_prompt": "Remove the wooden chair from the image",
+      "model": "flux-kontext-dev",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 29.219871704329066,
+            "ssim": 0.9493108192234757,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9657119512557983
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 16.526591874450702,
+            "ssim": 0.6196022289670166,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9634950160980225
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 16.224116621134993,
+            "ssim": 0.6017639361774929,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9213598370552063
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "scene_01.jpg",
+      "image_type": "scene",
+      "edit_pair_name": "chair_add_remove",
+      "edit_category": "scene_objects"
+    },
+    {
+      "source_image": "data/images/scene_01.jpg",
+      "forward_prompt": "Add a red ball in the foreground",
+      "backward_prompt": "Remove the red ball from the image",
+      "model": "flux-kontext-dev",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 31.704763805383163,
+            "ssim": 0.9626513656797474,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9862684011459351
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 18.568802697239,
+            "ssim": 0.6633640817327966,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9653700590133667
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 17.187611826856482,
+            "ssim": 0.6057856749008054,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.938336968421936
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "scene_01.jpg",
+      "image_type": "scene",
+      "edit_pair_name": "red_ball_add_remove",
+      "edit_category": "scene_objects"
+    },
+    {
+      "source_image": "data/images/scene_01.jpg",
+      "forward_prompt": "Add a potted plant in the corner",
+      "backward_prompt": "Remove the potted plant from the image",
+      "model": "flux-kontext-dev",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 32.189128458213965,
+            "ssim": 0.9558834405011258,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9788305163383484
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 13.440519361939865,
+            "ssim": 0.5575590292314132,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9520150423049927
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 13.529483098210884,
+            "ssim": 0.5160840553736795,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9369754195213318
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "scene_01.jpg",
+      "image_type": "scene",
+      "edit_pair_name": "plant_add_remove",
+      "edit_category": "scene_objects"
+    },
+    {
+      "source_image": "data/images/scene_02.jpg",
+      "forward_prompt": "Add a wooden chair on the left side of the image",
+      "backward_prompt": "Remove the wooden chair from the image",
+      "model": "flux-kontext-dev",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 18.874154466631794,
+            "ssim": 0.8933694129742062,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9393798112869263
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 18.495780494926116,
+            "ssim": 0.855759566150756,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9386725425720215
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 18.025949940381324,
+            "ssim": 0.8038507461183514,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9201809167861938
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "scene_02.jpg",
+      "image_type": "scene",
+      "edit_pair_name": "chair_add_remove",
+      "edit_category": "scene_objects"
+    },
+    {
+      "source_image": "data/images/scene_02.jpg",
+      "forward_prompt": "Add a red ball in the foreground",
+      "backward_prompt": "Remove the red ball from the image",
+      "model": "flux-kontext-dev",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 25.163773330700923,
+            "ssim": 0.9476895612736459,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9825108051300049
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 23.592801413172655,
+            "ssim": 0.8955200224754686,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9348776936531067
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 23.113513600485213,
+            "ssim": 0.8154554245555229,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9090933203697205
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "scene_02.jpg",
+      "image_type": "scene",
+      "edit_pair_name": "red_ball_add_remove",
+      "edit_category": "scene_objects"
+    },
+    {
+      "source_image": "data/images/scene_02.jpg",
+      "forward_prompt": "Add a potted plant in the corner",
+      "backward_prompt": "Remove the potted plant from the image",
+      "model": "flux-kontext-dev",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 30.8770828479838,
+            "ssim": 0.9482866837052107,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9805898070335388
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 28.156773975448374,
+            "ssim": 0.8869618315156341,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9523427486419678
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 26.405121223236133,
+            "ssim": 0.8292349473624342,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9335985779762268
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "scene_02.jpg",
+      "image_type": "scene",
+      "edit_pair_name": "plant_add_remove",
+      "edit_category": "scene_objects"
+    },
+    {
+      "source_image": "data/images/scene_03.jpg",
+      "forward_prompt": "Add a wooden chair on the left side of the image",
+      "backward_prompt": "Remove the wooden chair from the image",
+      "model": "flux-kontext-dev",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 19.893343890850147,
+            "ssim": 0.8425533053718978,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9857786893844604
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 19.557242010878245,
+            "ssim": 0.8032156161711899,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9589334726333618
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 18.928328375228553,
+            "ssim": 0.7548015430235567,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9433692693710327
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "scene_03.jpg",
+      "image_type": "scene",
+      "edit_pair_name": "chair_add_remove",
+      "edit_category": "scene_objects"
+    },
+    {
+      "source_image": "data/images/scene_03.jpg",
+      "forward_prompt": "Add a red ball in the foreground",
+      "backward_prompt": "Remove the red ball from the image",
+      "model": "flux-kontext-dev",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 25.07587158793917,
+            "ssim": 0.8682751172966882,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9802239537239075
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 23.271490116892558,
+            "ssim": 0.8148072067435047,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.936816394329071
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 21.58108660640451,
+            "ssim": 0.7600811431307685,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.8894058465957642
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "scene_03.jpg",
+      "image_type": "scene",
+      "edit_pair_name": "red_ball_add_remove",
+      "edit_category": "scene_objects"
+    },
+    {
+      "source_image": "data/images/scene_03.jpg",
+      "forward_prompt": "Add a potted plant in the corner",
+      "backward_prompt": "Remove the potted plant from the image",
+      "model": "flux-kontext-dev",
+      "rounds": [
+        {
+          "round": 1,
+          "quality": {
+            "psnr": 23.69340071793978,
+            "ssim": 0.871310773035063,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9779086709022522
+          },
+          "success": true
+        },
+        {
+          "round": 2,
+          "quality": {
+            "psnr": 22.502155212777932,
+            "ssim": 0.8253587629603416,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.9437000155448914
+          },
+          "success": true
+        },
+        {
+          "round": 3,
+          "quality": {
+            "psnr": 21.121746478695353,
+            "ssim": 0.7699833270976186,
+            "lpips": 0.0
+          },
+          "semantic": {
+            "clip_similarity": 0.8724855184555054
+          },
+          "success": true
+        }
+      ],
+      "image_filename": "scene_03.jpg",
+      "image_type": "scene",
+      "edit_pair_name": "plant_add_remove",
+      "edit_category": "scene_objects"
+    }
+  ]
+}
