@@ -6,15 +6,18 @@ Matches images with appropriate edit pairs based on type:
 - portraits → accessories
 - scenes → scene_objects  
 - all → geometric
+
+Supports --resume to skip already-completed evaluations.
 """
 
 import argparse
 import json
 import os
 import sys
+import glob
 from pathlib import Path
 from datetime import datetime
-from typing import Optional
+from typing import Optional, Set, Tuple
 from PIL import Image
 import time
 
@@ -35,9 +38,12 @@ IMAGE_EDIT_MAPPING = {
 
 def load_model(model_name: str, api_key: Optional[str] = None) -> BaseEditModel:
     """Load an editing model by name."""
+    # Gemini (direct Google API)
     if model_name in ["gemini", "nano-banana", "gemini-flash"]:
         from models.gemini import GeminiEditModel
         return GeminiEditModel(api_key=api_key)
+    
+    # FLUX Kontext variants
     elif model_name in ["flux", "flux-dev", "flux-kontext-dev"]:
         from models.flux import FluxKontextDev
         return FluxKontextDev(api_key=api_key)
@@ -47,8 +53,33 @@ def load_model(model_name: str, api_key: Optional[str] = None) -> BaseEditModel:
     elif model_name in ["flux-max", "flux-kontext-max"]:
         from models.flux import FluxKontextMax
         return FluxKontextMax(api_key=api_key)
+    
+    # Seedream v4.5 (ByteDance via FAL)
+    elif model_name in ["seedream", "seedream-v4.5", "bytedance"]:
+        from models.fal_models import SeedreamModel
+        return SeedreamModel(api_key=api_key)
+    
+    # Grok Imagine (xAI via FAL)
+    elif model_name in ["grok", "grok-imagine"]:
+        from models.fal_models import GrokImagineModel
+        return GrokImagineModel(api_key=api_key)
+    
+    # Qwen Edit (Alibaba via FAL)
+    elif model_name in ["qwen", "qwen-edit"]:
+        from models.fal_models import QwenEditModel
+        return QwenEditModel(api_key=api_key)
+    
+    # Nano Banana Edit (Gemini via FAL)
+    elif model_name in ["nano-banana-edit", "nano-banana-fal", "gemini-fal"]:
+        from models.fal_models import NanoBananaEditModel
+        return NanoBananaEditModel(api_key=api_key)
+    
     else:
-        raise ValueError(f"Unknown model: {model_name}. Available: gemini, flux-dev, flux-pro, flux-max")
+        available = [
+            "gemini", "flux-dev", "flux-pro", "flux-max",
+            "seedream", "grok", "qwen", "nano-banana-edit"
+        ]
+        raise ValueError(f"Unknown model: {model_name}. Available: {', '.join(available)}")
 
 
 def load_edit_pairs(path: Path) -> list[dict]:
@@ -69,6 +100,57 @@ def get_valid_pairs(image_meta: dict, edit_pairs: list[dict]) -> list[dict]:
     allowed_categories = IMAGE_EDIT_MAPPING.get(image_type, ["geometric"])
     
     return [ep for ep in edit_pairs if ep.get("category") in allowed_categories]
+
+
+def load_completed_evaluations(
+    output_dir: Path, 
+    max_rounds: int
+) -> Tuple[Set[Tuple[str, str]], list[dict], Optional[Path]]:
+    """
+    Load completed evaluations from existing results files.
+    
+    Returns:
+        - Set of (image_filename, edit_pair_name) tuples that are complete
+        - List of all existing evaluation results (for merging)
+        - Path to the most recent results file (or None)
+    """
+    completed = set()
+    all_results = []
+    latest_file = None
+    latest_time = None
+    
+    # Find all results JSON files in output directory
+    pattern = str(output_dir / "results_*.json")
+    result_files = glob.glob(pattern)
+    
+    for filepath in result_files:
+        try:
+            with open(filepath) as f:
+                data = json.load(f)
+            
+            # Track the latest file by timestamp in filename
+            file_time = Path(filepath).stem.split("_")[-1]
+            if latest_time is None or file_time > latest_time:
+                latest_time = file_time
+                latest_file = Path(filepath)
+            
+            for eval_result in data.get("evaluations", []):
+                img = eval_result.get("image_filename", "")
+                edit = eval_result.get("edit_pair_name", "")
+                rounds = eval_result.get("rounds", [])
+                
+                # Check if this evaluation is complete (all rounds successful)
+                successful_rounds = sum(1 for r in rounds if r.get("success", False))
+                
+                if successful_rounds >= max_rounds:
+                    completed.add((img, edit))
+                    all_results.append(eval_result)
+                    
+        except (json.JSONDecodeError, KeyError) as e:
+            print(f"Warning: Could not parse {filepath}: {e}")
+            continue
+    
+    return completed, all_results, latest_file
 
 
 def run_single_evaluation(
@@ -173,10 +255,14 @@ def run_smart_benchmark(
     max_rounds: int = 3,
     api_key: Optional[str] = None,
     include_lpips: bool = False,
-    max_pairs_per_image: Optional[int] = None
+    max_pairs_per_image: Optional[int] = None,
+    resume: bool = False
 ) -> dict:
     """
     Run the smart benchmark with proper image-edit pairing.
+    
+    Args:
+        resume: If True, skip evaluations that are already complete in existing results.
     """
     images_dir = data_dir / "images"
     edit_pairs_path = data_dir / "edit_pairs.json"
@@ -189,6 +275,21 @@ def run_smart_benchmark(
     edit_pairs = load_edit_pairs(edit_pairs_path)
     images_meta = load_images_metadata(images_meta_path)
     
+    # Check for existing results if resuming
+    completed_evals = set()
+    existing_results = []
+    if resume:
+        print(f"Checking for existing results in: {output_dir}")
+        completed_evals, existing_results, latest_file = load_completed_evaluations(
+            output_dir, max_rounds
+        )
+        if completed_evals:
+            print(f"Found {len(completed_evals)} completed evaluations to skip")
+            if latest_file:
+                print(f"  Latest results file: {latest_file.name}")
+        else:
+            print("No completed evaluations found, starting fresh")
+    
     # Prepare results
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     results = {
@@ -196,29 +297,47 @@ def run_smart_benchmark(
             "model": model_name,
             "timestamp": timestamp,
             "max_rounds": max_rounds,
+            "resumed": resume,
+            "resumed_from_count": len(existing_results) if resume else 0,
         },
-        "evaluations": []
+        "evaluations": list(existing_results)  # Start with existing complete results
     }
     
-    # Count total evaluations
+    # Build evaluation plan
     total_evals = 0
     eval_plan = []
+    skipped = 0
     for img_meta in images_meta:
         valid_pairs = get_valid_pairs(img_meta, edit_pairs)
         if max_pairs_per_image:
             valid_pairs = valid_pairs[:max_pairs_per_image]
         for ep in valid_pairs:
-            eval_plan.append((img_meta, ep))
             total_evals += 1
+            eval_key = (img_meta["filename"], ep["name"])
+            if resume and eval_key in completed_evals:
+                skipped += 1
+                continue
+            eval_plan.append((img_meta, ep))
     
-    print(f"\nPlanned evaluations: {total_evals}")
+    remaining = len(eval_plan)
+    print(f"\nTotal evaluations: {total_evals}")
+    if resume:
+        print(f"Already complete: {skipped}")
+        print(f"Remaining to run: {remaining}")
     print(f"Max rounds per evaluation: {max_rounds}")
     print("-" * 50)
+    
+    if remaining == 0:
+        print("\nAll evaluations already complete!")
+        results_path = output_dir / f"results_{model_name}_{timestamp}.json"
+        with open(results_path, "w") as f:
+            json.dump(results, f, indent=2)
+        return results
     
     # Run evaluations
     for idx, (img_meta, edit_pair) in enumerate(eval_plan, 1):
         image_path = images_dir / img_meta["filename"]
-        print(f"\n[{idx}/{total_evals}] {img_meta['filename']} × {edit_pair['name']}")
+        print(f"\n[{idx}/{remaining}] {img_meta['filename']} × {edit_pair['name']}")
         print(f"  Type: {img_meta['type']} | Category: {edit_pair['category']}")
         
         # Create output subdirectory
@@ -248,6 +367,7 @@ def run_smart_benchmark(
     print(f"\n{'=' * 50}")
     print(f"Benchmark complete!")
     print(f"Results saved to: {results_path}")
+    print(f"Total evaluations in file: {len(results['evaluations'])}")
     
     return results
 
@@ -268,6 +388,8 @@ def main():
                         help="Include LPIPS computation (slower)")
     parser.add_argument("--max-pairs", type=int, default=None,
                         help="Max edit pairs per image (for quick testing)")
+    parser.add_argument("--resume", action="store_true",
+                        help="Resume from existing results, skipping completed evaluations")
     
     args = parser.parse_args()
     
@@ -281,7 +403,8 @@ def main():
         max_rounds=args.max_rounds,
         api_key=args.api_key,
         include_lpips=args.include_lpips,
-        max_pairs_per_image=args.max_pairs
+        max_pairs_per_image=args.max_pairs,
+        resume=args.resume
     )
 
 
