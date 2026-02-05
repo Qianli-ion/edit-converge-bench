@@ -16,6 +16,7 @@ MODELS = {
     'Gemini': ('results_gemini_10rounds', '#F39C12'),  # Orange
     'Grok': ('results_grok_10rounds', '#3498DB'),      # Blue
     'Qwen': ('results_qwen_10rounds', '#2ECC71'),      # Green
+    'Nano Banana': ('results_nano-banana-edit_10rounds', '#9B59B6'),  # Purple
 }
 
 def load_metrics_by_round(result_dir, common_exps=None):

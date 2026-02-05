@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create a comparison grid of round-trip editing results."""
+"""Create a comparison grid of round-trip editing results across all models."""
 
 from PIL import Image, ImageDraw, ImageFont
 import os
@@ -7,10 +7,17 @@ from pathlib import Path
 
 # Configuration
 BASE_DIR = Path(__file__).parent
-FLUX_DIR = BASE_DIR / "results_flux_10rounds"
-GEMINI_DIR = BASE_DIR / "results_gemini_10rounds"
 OUTPUT_DIR = BASE_DIR / "results_comparison"
 OUTPUT_DIR.mkdir(exist_ok=True)
+
+# Models with their directories
+MODELS = [
+    ("FLUX", "results_flux_10rounds"),
+    ("Gemini", "results_gemini_10rounds"),
+    ("Grok", "results_grok_10rounds"),
+    ("Qwen", "results_qwen_10rounds"),
+    ("Nano Banana", "results_nano-banana-edit_10rounds"),
+]
 
 # Columns: Original, Round 1, 2, 5, 10
 COLUMNS = [
@@ -21,28 +28,22 @@ COLUMNS = [
     ("Round 10", "I10_backward.png"),
 ]
 
-# Experiments to include (matching between both models)
+# Experiments to include
 EXPERIMENTS = [
     "portrait_01_glasses_add_remove",
     "portrait_01_hat_add_remove",
-    "portrait_02_glasses_add_remove",
     "portrait_02_hat_add_remove",
     "portrait_03_glasses_add_remove",
     "portrait_03_hat_add_remove",
     "scene_01_chair_add_remove",
-    "scene_01_red_ball_add_remove",
-    "scene_02_chair_add_remove",
-    "scene_02_red_ball_add_remove",
-    "scene_03_chair_add_remove",
-    "scene_03_red_ball_add_remove",
 ]
 
 # Grid settings
-THUMB_SIZE = 256
-PADDING = 10
-HEADER_HEIGHT = 40
-ROW_LABEL_WIDTH = 200
-FONT_SIZE = 20
+THUMB_SIZE = 180
+PADDING = 6
+HEADER_HEIGHT = 30
+ROW_LABEL_WIDTH = 140
+FONT_SIZE = 14
 
 def get_font(size=FONT_SIZE):
     """Try to get a decent font, fall back to default."""
@@ -62,7 +63,7 @@ def get_font(size=FONT_SIZE):
 def create_comparison_grid():
     """Create the full comparison grid."""
     n_cols = len(COLUMNS)
-    n_rows = len(EXPERIMENTS) * 2  # 2 models per experiment
+    n_rows = len(EXPERIMENTS) * len(MODELS)  # Each experiment × each model
     
     # Calculate dimensions
     grid_width = ROW_LABEL_WIDTH + n_cols * (THUMB_SIZE + PADDING) + PADDING
@@ -72,7 +73,7 @@ def create_comparison_grid():
     canvas = Image.new('RGB', (grid_width, grid_height), 'white')
     draw = ImageDraw.Draw(canvas)
     font = get_font()
-    small_font = get_font(14)
+    small_font = get_font(11)
     
     # Draw column headers
     for col_idx, (col_name, _) in enumerate(COLUMNS):
@@ -81,21 +82,20 @@ def create_comparison_grid():
         draw.text((x, y), col_name, fill='black', font=font, anchor='mm')
     
     # Draw rows
+    row_idx = 0
     for exp_idx, exp_name in enumerate(EXPERIMENTS):
-        # Two rows per experiment: Gemini and FLUX
-        for model_idx, (model_name, model_dir) in enumerate([("Gemini", GEMINI_DIR), ("FLUX", FLUX_DIR)]):
-            row_idx = exp_idx * 2 + model_idx
+        for model_idx, (model_name, model_dir) in enumerate(MODELS):
             y_base = HEADER_HEIGHT + row_idx * (THUMB_SIZE + PADDING) + PADDING
             
             # Row label
-            short_name = exp_name.replace("_add_remove", "").replace("_", " ")
-            label = f"{short_name}\n({model_name})"
+            short_exp = exp_name.replace("_add_remove", "").replace("_", " ")
+            label = f"{short_exp}\n({model_name})"
             label_y = y_base + THUMB_SIZE // 2
             draw.text((PADDING, label_y), label, fill='black', font=small_font, anchor='lm')
             
             # Images for each column
             for col_idx, (_, filename) in enumerate(COLUMNS):
-                img_path = model_dir / exp_name / filename
+                img_path = BASE_DIR / model_dir / exp_name / filename
                 x = ROW_LABEL_WIDTH + col_idx * (THUMB_SIZE + PADDING) + PADDING
                 
                 if img_path.exists():
@@ -116,6 +116,8 @@ def create_comparison_grid():
                                   outline='gray', width=1)
                     draw.text((x + THUMB_SIZE//2, y_base + THUMB_SIZE//2), 
                              "N/A", fill='gray', font=small_font, anchor='mm')
+            
+            row_idx += 1
     
     # Save
     output_path = OUTPUT_DIR / "comparison_grid_full.png"

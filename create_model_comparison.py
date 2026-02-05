@@ -17,6 +17,7 @@ MODELS = [
     ("Gemini", "results_gemini_10rounds"),
     ("Grok", "results_grok_10rounds"),
     ("Qwen", "results_qwen_10rounds"),
+    ("Nano Banana", "results_nano-banana-edit_10rounds"),
 ]
 
 # Representative experiments to show (that exist in most/all models)
