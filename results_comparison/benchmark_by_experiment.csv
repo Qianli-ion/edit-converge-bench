@@ -446,3 +446,16 @@ nano_banana,scene_02.jpg,chair_add_remove,scene,scene_objects,21.082,0.7663,0.87
 nano_banana,scene_02.jpg,red_ball_add_remove,scene,scene_objects,21.9314,0.7712,0.8057
 nano_banana,scene_02.jpg,umbrella_add_remove,scene,scene_objects,17.035,0.7476,0.7413
 nano_banana,scene_02.jpg,cat_add_remove,scene,scene_objects,21.5442,0.7492,0.7912
+nano_banana,scene_02.jpg,dog_add_remove,scene,scene_objects,19.9992,0.7479,0.8737
+nano_banana,scene_02.jpg,flower_vase_add_remove,scene,scene_objects,21.6635,0.7923,0.8776
+nano_banana,scene_03.jpg,chair_add_remove,scene,scene_objects,18.5367,0.6607,0.8801
+nano_banana,scene_03.jpg,red_ball_add_remove,scene,scene_objects,19.4599,0.6741,0.8879
+nano_banana,scene_03.jpg,plant_add_remove,scene,scene_objects,16.8597,0.6513,0.9211
+nano_banana,scene_03.jpg,book_add_remove,scene,scene_objects,19.0703,0.6693,0.8608
+nano_banana,scene_03.jpg,coffee_cup_add_remove,scene,scene_objects,19.4108,0.6805,0.833
+nano_banana,scene_03.jpg,horizontal_flip,scene,geometric,14.8924,0.5626,0.8828
+nano_banana,scene_03.jpg,rotate_90_cw,scene,geometric,10.5608,0.3215,0.7857
+nano_banana,scene_03.jpg,umbrella_add_remove,scene,scene_objects,16.57,0.6346,0.7481
+nano_banana,scene_03.jpg,cat_add_remove,scene,scene_objects,18.9622,0.6582,0.8955
+nano_banana,scene_03.jpg,dog_add_remove,scene,scene_objects,18.7332,0.6656,0.8537
+nano_banana,scene_03.jpg,flower_vase_add_remove,scene,scene_objects,17.8649,0.657,0.8403
