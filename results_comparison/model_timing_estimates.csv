@@ -1,0 +1,6 @@
+model,sec_per_image,relative_speed
+flux,4.1,1.0
+gemini,6.1,1.5
+qwen,7.2,1.8
+grok,10.5,2.6
+nano_banana,28.5,7.0
