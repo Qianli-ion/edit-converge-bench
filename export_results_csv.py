@@ -18,6 +18,7 @@ MODELS = {
     'grok': 'results_grok_10rounds',
     'qwen': 'results_qwen_10rounds',
     'nano_banana': 'results_nano-banana-edit_10rounds',
+    'seedream': 'results_seedream_10rounds',
 }
 
 def load_all_results():

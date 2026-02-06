@@ -17,6 +17,7 @@ MODELS = [
     ("Grok", "results_grok_10rounds"),
     ("Qwen", "results_qwen_10rounds"),
     ("Nano Banana", "results_nano-banana-edit_10rounds"),
+    ("Seedream", "results_seedream_10rounds"),
 ]
 
 # Columns: Original, Round 1, 2, 5, 10
@@ -28,14 +29,16 @@ COLUMNS = [
     ("Round 10", "I10_backward.png"),
 ]
 
-# Experiments to include
+# Experiments to include (portraits + scenes)
 EXPERIMENTS = [
     "portrait_01_glasses_add_remove",
     "portrait_01_hat_add_remove",
     "portrait_02_hat_add_remove",
     "portrait_03_glasses_add_remove",
-    "portrait_03_hat_add_remove",
     "scene_01_chair_add_remove",
+    "scene_01_red_ball_add_remove",
+    "scene_02_chair_add_remove",
+    "scene_03_chair_add_remove",
 ]
 
 # Grid settings
