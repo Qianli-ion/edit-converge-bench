@@ -7,7 +7,7 @@ Matches images with appropriate edit pairs based on type:
 - scenes → scene_objects  
 - all → geometric
 
-Supports --resume to skip already-completed evaluations.
+Supports --resume to skip already-completed evaluations AND continue partial ones.
 """
 
 import argparse
@@ -15,9 +15,10 @@ import json
 import os
 import sys
 import glob
+import re
 from pathlib import Path
 from datetime import datetime
-from typing import Optional, Set, Tuple
+from typing import Optional, Set, Tuple, Dict, List
 from PIL import Image
 import time
 
@@ -102,20 +103,69 @@ def get_valid_pairs(image_meta: dict, edit_pairs: list[dict]) -> list[dict]:
     return [ep for ep in edit_pairs if ep.get("category") in allowed_categories]
 
 
+def find_last_completed_round(eval_output_dir: Path) -> Tuple[int, Optional[Path]]:
+    """
+    Find the last fully completed round by checking saved images.
+    
+    A round is complete if both I{n}_forward.png and I{n}_backward.png exist.
+    
+    Returns:
+        Tuple of (last_complete_round, path_to_last_backward_image)
+        Returns (0, None) if no rounds completed.
+    """
+    if not eval_output_dir.exists():
+        return 0, None
+    
+    last_complete = 0
+    last_backward_path = None
+    
+    # Check each round
+    for n in range(1, 100):  # Reasonable upper limit
+        forward_path = eval_output_dir / f"I{n}_forward.png"
+        backward_path = eval_output_dir / f"I{n}_backward.png"
+        
+        if forward_path.exists() and backward_path.exists():
+            last_complete = n
+            last_backward_path = backward_path
+        else:
+            break
+    
+    return last_complete, last_backward_path
+
+
+def load_partial_evaluation_from_json(
+    evaluations: List[dict],
+    image_filename: str,
+    edit_pair_name: str
+) -> Optional[dict]:
+    """
+    Find partial evaluation data from existing JSON results.
+    
+    Returns the evaluation dict if found, None otherwise.
+    """
+    for eval_result in evaluations:
+        if (eval_result.get("image_filename") == image_filename and
+            eval_result.get("edit_pair_name") == edit_pair_name):
+            return eval_result
+    return None
+
+
 def load_completed_evaluations(
     output_dir: Path, 
     max_rounds: int
-) -> Tuple[Set[Tuple[str, str]], list[dict], Optional[Path]]:
+) -> Tuple[Set[Tuple[str, str]], Dict[Tuple[str, str], dict], list[dict], Optional[Path]]:
     """
-    Load completed evaluations from existing results files.
+    Load completed and partial evaluations from existing results files.
     
     Returns:
-        - Set of (image_filename, edit_pair_name) tuples that are complete
-        - List of all existing evaluation results (for merging)
+        - Set of (image_filename, edit_pair_name) tuples that are FULLY complete
+        - Dict of partial evaluations: {(img, edit): eval_result} for incomplete ones
+        - List of all complete evaluation results (for merging)
         - Path to the most recent results file (or None)
     """
     completed = set()
-    all_results = []
+    partial = {}
+    complete_results = []
     latest_file = None
     latest_time = None
     
@@ -139,18 +189,28 @@ def load_completed_evaluations(
                 edit = eval_result.get("edit_pair_name", "")
                 rounds = eval_result.get("rounds", [])
                 
+                if not img or not edit:
+                    continue
+                
                 # Check if this evaluation is complete (all rounds successful)
                 successful_rounds = sum(1 for r in rounds if r.get("success", False))
                 
                 if successful_rounds >= max_rounds:
                     completed.add((img, edit))
-                    all_results.append(eval_result)
+                    complete_results.append(eval_result)
+                elif successful_rounds > 0:
+                    # Partial - store for potential continuation
+                    key = (img, edit)
+                    existing = partial.get(key)
+                    # Keep the one with more rounds
+                    if existing is None or len(rounds) > len(existing.get("rounds", [])):
+                        partial[key] = eval_result
                     
         except (json.JSONDecodeError, KeyError) as e:
             print(f"Warning: Could not parse {filepath}: {e}")
             continue
     
-    return completed, all_results, latest_file
+    return completed, partial, complete_results, latest_file
 
 
 def run_single_evaluation(
@@ -163,10 +223,19 @@ def run_single_evaluation(
     save_intermediates: bool = True,
     include_lpips: bool = False,
     retry_count: int = 2,
-    retry_delay: float = 5.0
+    retry_delay: float = 5.0,
+    # New parameters for continuation
+    start_round: int = 1,
+    start_image: Optional[Image.Image] = None,
+    existing_rounds: Optional[List[dict]] = None
 ) -> dict:
     """
     Run round-trip evaluation on a single image/edit pair.
+    
+    Args:
+        start_round: Round number to start from (1-indexed). Default 1.
+        start_image: Image to use as starting point. If None, uses source image.
+        existing_rounds: List of already-completed round results to include.
     """
     # Load source image
     source_image = Image.open(image_path).convert("RGB")
@@ -174,7 +243,8 @@ def run_single_evaluation(
     # Prepare output directory
     if output_dir and save_intermediates:
         output_dir.mkdir(parents=True, exist_ok=True)
-        source_image.save(output_dir / "I0_source.png")
+        if start_round == 1:
+            source_image.save(output_dir / "I0_source.png")
     
     results = {
         "source_image": str(image_path),
@@ -184,9 +254,18 @@ def run_single_evaluation(
         "rounds": []
     }
     
-    current_image = source_image
+    # Include existing rounds if continuing
+    if existing_rounds:
+        results["rounds"] = list(existing_rounds)
     
-    for n in range(1, max_rounds + 1):
+    # Determine starting image
+    if start_image is not None:
+        current_image = start_image
+        print(f"    (Continuing from round {start_round})")
+    else:
+        current_image = source_image
+    
+    for n in range(start_round, max_rounds + 1):
         round_result = {"round": n}
         
         # Retry logic for API calls
@@ -262,7 +341,7 @@ def run_smart_benchmark(
     Run the smart benchmark with proper image-edit pairing.
     
     Args:
-        resume: If True, skip evaluations that are already complete in existing results.
+        resume: If True, skip completed evaluations AND continue partial ones.
     """
     images_dir = data_dir / "images"
     edit_pairs_path = data_dir / "edit_pairs.json"
@@ -277,18 +356,21 @@ def run_smart_benchmark(
     
     # Check for existing results if resuming
     completed_evals = set()
+    partial_evals = {}
     existing_results = []
     if resume:
         print(f"Checking for existing results in: {output_dir}")
-        completed_evals, existing_results, latest_file = load_completed_evaluations(
+        completed_evals, partial_evals, existing_results, latest_file = load_completed_evaluations(
             output_dir, max_rounds
         )
         if completed_evals:
             print(f"Found {len(completed_evals)} completed evaluations to skip")
-            if latest_file:
-                print(f"  Latest results file: {latest_file.name}")
-        else:
-            print("No completed evaluations found, starting fresh")
+        if partial_evals:
+            print(f"Found {len(partial_evals)} partial evaluations to continue")
+        if latest_file:
+            print(f"  Latest results file: {latest_file.name}")
+        if not completed_evals and not partial_evals:
+            print("No existing evaluations found, starting fresh")
     
     # Prepare results
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -299,6 +381,7 @@ def run_smart_benchmark(
             "max_rounds": max_rounds,
             "resumed": resume,
             "resumed_from_count": len(existing_results) if resume else 0,
+            "continued_partial_count": len(partial_evals) if resume else 0,
         },
         "evaluations": list(existing_results)  # Start with existing complete results
     }
@@ -307,6 +390,7 @@ def run_smart_benchmark(
     total_evals = 0
     eval_plan = []
     skipped = 0
+    to_continue = 0
     for img_meta in images_meta:
         valid_pairs = get_valid_pairs(img_meta, edit_pairs)
         if max_pairs_per_image:
@@ -317,13 +401,19 @@ def run_smart_benchmark(
             if resume and eval_key in completed_evals:
                 skipped += 1
                 continue
-            eval_plan.append((img_meta, ep))
+            # Check if this is a partial evaluation to continue
+            partial_data = partial_evals.get(eval_key) if resume else None
+            if partial_data:
+                to_continue += 1
+            eval_plan.append((img_meta, ep, partial_data))
     
     remaining = len(eval_plan)
     print(f"\nTotal evaluations: {total_evals}")
     if resume:
         print(f"Already complete: {skipped}")
-        print(f"Remaining to run: {remaining}")
+        print(f"To continue (partial): {to_continue}")
+        print(f"To run fresh: {remaining - to_continue}")
+    print(f"Remaining to process: {remaining}")
     print(f"Max rounds per evaluation: {max_rounds}")
     print("-" * 50)
     
@@ -335,13 +425,36 @@ def run_smart_benchmark(
         return results
     
     # Run evaluations
-    for idx, (img_meta, edit_pair) in enumerate(eval_plan, 1):
+    for idx, (img_meta, edit_pair, partial_data) in enumerate(eval_plan, 1):
         image_path = images_dir / img_meta["filename"]
-        print(f"\n[{idx}/{remaining}] {img_meta['filename']} × {edit_pair['name']}")
-        print(f"  Type: {img_meta['type']} | Category: {edit_pair['category']}")
         
         # Create output subdirectory
         eval_output_dir = output_dir / f"{Path(img_meta['filename']).stem}_{edit_pair['name']}"
+        
+        # Determine if we're continuing a partial evaluation
+        start_round = 1
+        start_image = None
+        existing_rounds = None
+        
+        if partial_data:
+            # Check for saved images to continue from
+            last_complete, last_backward_path = find_last_completed_round(eval_output_dir)
+            
+            if last_complete > 0 and last_backward_path and last_backward_path.exists():
+                start_round = last_complete + 1
+                start_image = Image.open(last_backward_path).convert("RGB")
+                # Get existing rounds from partial data (only successful ones up to last_complete)
+                existing_rounds = [
+                    r for r in partial_data.get("rounds", [])
+                    if r.get("round", 0) <= last_complete and r.get("success", False)
+                ]
+                print(f"\n[{idx}/{remaining}] {img_meta['filename']} × {edit_pair['name']} (CONTINUING from round {start_round})")
+            else:
+                print(f"\n[{idx}/{remaining}] {img_meta['filename']} × {edit_pair['name']} (partial found but images missing, restarting)")
+        else:
+            print(f"\n[{idx}/{remaining}] {img_meta['filename']} × {edit_pair['name']}")
+        
+        print(f"  Type: {img_meta['type']} | Category: {edit_pair['category']}")
         
         eval_result = run_single_evaluation(
             model=model,
@@ -350,7 +463,10 @@ def run_smart_benchmark(
             backward_prompt=edit_pair["backward"],
             max_rounds=max_rounds,
             output_dir=eval_output_dir,
-            include_lpips=include_lpips
+            include_lpips=include_lpips,
+            start_round=start_round,
+            start_image=start_image,
+            existing_rounds=existing_rounds
         )
         eval_result["image_filename"] = img_meta["filename"]
         eval_result["image_type"] = img_meta["type"]
@@ -389,7 +505,7 @@ def main():
     parser.add_argument("--max-pairs", type=int, default=None,
                         help="Max edit pairs per image (for quick testing)")
     parser.add_argument("--resume", action="store_true",
-                        help="Resume from existing results, skipping completed evaluations")
+                        help="Resume: skip completed evaluations AND continue partial ones")
     
     args = parser.parse_args()
     
